@@ -11,6 +11,15 @@ class Methods2Test < MiniTest::Test
    	end.new
 	end
 
-	# Tests go here
+	def test_evaluate
+		assert_equal true, @m.evaluate(4)
+		assert_equal true, @m.evaluate(2000)
+		assert_equal false, @m.evaluate(1900)
+		assert_equal false, @m.evaluate(5)
+	end
+
+	def test_percent_seconds_in_year
+		
+	end
 
 end
