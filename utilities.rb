@@ -2,35 +2,57 @@ module Utilities
 
 	SECONDS_IN_A_YEAR = 31536000.0
 	
-	def evaluate(x)
+	def leap_year?(year)
 		#is it a leap year?
-		(divisible_by_400?(x)) || (!divisible_by_100?(x)) && (divisible_by_4?(x))
+		(divisible_by_400?(year)) || (!divisible_by_100?(year)) && (divisible_by_4?(year))
 	end
 
 	def percent_seconds_in_year(seconds)
-		('%.1f' % ((a / SECONDS_IN_A_YEAR) * 100)) + '%'
+		('%.1f' % ((seconds / SECONDS_IN_A_YEAR) * 100)) + '%'
 	end
 
-	def convert(x)
-		a, b = x.split(":")
-		c, d = b.split(" ")
-		e = ""
+	def convert_military_time(time)
+		hour, minutes = time.split(":")
+		minutes, ampm = minutes.split(" ")
+		military_time = ""
 
-		if d.downcase != 'am'
-			if a.to_i == 12
-				e = a + ":" + c
-			else
-				e = (a.to_i + 12).to_s + ":" + c
-			end
-		elsif d.downcase != 'pm'
-			if a.to_i == 12
-				e = (a.to_i - 12).to_s + ":" + c
-			else
-				e = a + ":" + c
-			end
+		# if ampm.downcase != 'am'
+		# 	if hour.to_i == 12
+		# 		military_time = hour + ":" + minutes
+		# 	else
+		# 		military_time = (hour.to_i + 12).to_s + ":" + minutes
+		# 	end
+		# elsif ampm.downcase != 'pm'
+		# 	if hour.to_i == 12
+		# 		military_time = (hour.to_i - 12).to_s + ":" + minutes
+		# 	else
+		# 		military_time = hour + ":" + minutes
+		# 	end
+		# end
+
+		# return military_time
+
+		if ampm.downcase != 'am'
+			am
+		end
+		elseif ampm.downcase != 'pm'
+			pm
 		end
 
-		return e
+	def am(time)
+		if hour.to_i == 12
+				military_time = hour + ":" + minutes
+			else
+				military_time = (hour.to_i + 12).to_s + ":" + minutes
+		end
+	end
+
+	def pm(time)
+		if hour.to_i == 12
+				military_time = (hour.to_i - 12).to_s + ":" + minutes
+			else
+				military_time = hour + ":" + minutes
+		end
 	end
 
 	def convert2(x)
@@ -84,10 +106,6 @@ module Utilities
 		def divisible_by_4?(x)
 			x % 4 == 0
 		end
-
-		# def round_float
-		# 	%.1f
-		# end
 
 
 end
