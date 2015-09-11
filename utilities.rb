@@ -11,49 +11,39 @@ module Utilities
 		('%.1f' % ((seconds / SECONDS_IN_A_YEAR) * 100)) + '%'
 	end
 
-	def convert_military_time(time)
-		hour, minutes = time.split(":")
-		minutes, ampm = minutes.split(" ")
-		military_time = ""
+	def convert_to_military_time(time)
+		am(time) ? convert_from_am(time) : convert_from_pm(time)
+	end
 
-		# if ampm.downcase != 'am'
-		# 	if hour.to_i == 12
-		# 		military_time = hour + ":" + minutes
-		# 	else
-		# 		military_time = (hour.to_i + 12).to_s + ":" + minutes
+# The following folded code is a sample of the previous attempts at refactoring (It was a long process):
+		# hour, minutes = time.split(":")
+		# minutes, ampm = minutes.split(" ")
+		# military_time = ""
+
+		# 	if ampm.downcase != 'am'
+		# 		if hour.to_i == 12
+		# 			military_time = hour + ":" + minutes
+		# 		else
+		# 			military_time = (hour.to_i + 12).to_s + ":" + minutes
+		# 		end
+		# 	elsif ampm.downcase != 'pm'
+		# 		if hour.to_i == 12
+		# 			military_time = (hour.to_i - 12).to_s + ":" + minutes
+		# 		else
+		# 			military_time = hour + ":" + minutes
+		# 		end
 		# 	end
-		# elsif ampm.downcase != 'pm'
-		# 	if hour.to_i == 12
-		# 		military_time = (hour.to_i - 12).to_s + ":" + minutes
-		# 	else
-		# 		military_time = hour + ":" + minutes
-		# 	end
+		# 	return military_time
 		# end
 
-		# return military_time
+		# if ampm.downcase != 'am'
+		# 	am
+		# end
+		# elseif ampm.downcase != 'pm'
+		# 	pm
+		# end
 
-		if ampm.downcase != 'am'
-			am
-		end
-		elseif ampm.downcase != 'pm'
-			pm
-		end
-
-	def am(time)
-		if hour.to_i == 12
-				military_time = hour + ":" + minutes
-			else
-				military_time = (hour.to_i + 12).to_s + ":" + minutes
-		end
-	end
-
-	def pm(time)
-		if hour.to_i == 12
-				military_time = (hour.to_i - 12).to_s + ":" + minutes
-			else
-				military_time = hour + ":" + minutes
-		end
-	end
+	
 
 	def convert2(x)
 		a, b = x.split(":")
@@ -107,5 +97,29 @@ module Utilities
 			x % 4 == 0
 		end
 
+		def am(time)
+		hour, minutes = time.split(":")
+		minutes, ampm = minutes.split(" ")
+		end
 
+		def pm(time)
+		hour, minutes = time.split(":")
+		hour.to_i >= 12 ? true : false
+		end
+
+		def convert_from_am (time)
+			hour, minutes = time.split(":")
+			minutes, ampm = minutes.split(" ")
+			military_time = ""
+
+			hour.to_i == 12 ? military_time = (hour.to_i - 12).to_s + ":" + minutes : military_time = hour + ":" + minutes
+		end
+
+		def convert_from_pm (time)
+			hour, minutes = time.split(":")
+			minutes, ampm = minutes.split(" ")
+			military_time = ""
+
+			hour.to_i == 12 ? military_time = hour + ":" + minutes : military_time = (hour.to_i + 12).to_s + ":" + minutes
+		end
 end

@@ -23,10 +23,10 @@ class Methods2Test < MiniTest::Test
 		assert_equal "0.0%", @m.percent_seconds_in_year(0)
 	end
 
-	def test_convert_military_time
-		assert_equal "20:15", @m.convert_military_time("8:15 pm")
-		assert_equal "5:45", @m.convert_military_time("5:45 am")
-		assert_equal "0:07", @m.convert_military_time("12:07 am")
+	def test_convert_to_military_time
+		assert_equal "20:15", @m.convert_to_military_time("8:15 pm")
+		assert_equal "5:45", @m.convert_to_military_time("5:45 am")
+		assert_equal "0:07", @m.convert_to_military_time("12:07 am")
 	end
 
 end
